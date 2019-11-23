@@ -9,6 +9,13 @@
         app:showAsAction="always"
         />
 
+    <item
+        android:id="@+id/action_notes"
+        android:icon="@drawable/ic_action_folders"
+        android:title="Sort"
+        app:showAsAction="always"
+        />
+
   <item
       android:id="@+id/action_removed_notes"
       android:icon="@drawable/ic_action_delete"

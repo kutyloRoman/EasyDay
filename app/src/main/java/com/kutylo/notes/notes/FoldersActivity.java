@@ -1,7 +1,9 @@
 package com.kutylo.notes.notes;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,31 +27,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.kutylo.notes.MyAdapter;
 import com.kutylo.notes.R;
 import com.kutylo.notes.Utils;
 
 import java.util.ArrayList;
 
-public class FoldersActivity extends AppCompatActivity {
+public class FoldersActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    DbNotesHelper dbNotesHelper;
-    MyAdapter myAdapter;
-
+    //---VIEW-----------------------------------------------------------------------
+    private View editNowView;
     private Toolbar toolbar;
     private EditText search_folder;
     private ListView folders;
     private LinearLayout actionPanel;
     private FloatingActionButton btn_addFolder;
 
-    private View editNowView;
+    //------Menu---------------------------------------
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+
+    DbNotesHelper dbNotesHelper;
+    MyAdapter myAdapter;
 
     private Boolean isSearchMode=false;
     private Boolean isChecked = false;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
 
         dbNotesHelper = new DbNotesHelper(this);
@@ -64,21 +72,14 @@ public class FoldersActivity extends AppCompatActivity {
         btn_addFolder=(FloatingActionButton)findViewById(R.id.action_add_folder);
         actionPanel = (LinearLayout) findViewById(R.id.action_folders);  //hide edit bottom panel
 
-
         actionPanel.setVisibility(View.INVISIBLE);
 
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_notes);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentFolder = getIntent();
-                String nowUseFolders=intentFolder.getStringExtra("FolderName");
-                Intent intent=new Intent(FoldersActivity.this, NotesActivity.class);
-                intent.putExtra("FolderName",nowUseFolders);
-                startActivity(intent);
-            }
-        });
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle = new ActionBarDrawerToggle(this, drawer,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
 
         loadFolderList();
 
@@ -134,16 +135,16 @@ public class FoldersActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.folder_menu, menu);
 
         Drawable sort = menu.getItem(0).getIcon();
-        Drawable removed = menu.getItem(1).getIcon();
-        Drawable folders=toolbar.getNavigationIcon();
+        Drawable notes = menu.getItem(0).getIcon();
+        Drawable removed = menu.getItem(2).getIcon();
         sort.mutate();
         removed.mutate();
-        folders.mutate();
+        notes.mutate();
 
         toolbar.setTitleTextColor(Color.BLACK);
         sort.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
         removed.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
-        folders.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
+        notes.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -176,6 +177,10 @@ public class FoldersActivity extends AppCompatActivity {
                 //removedNotes
             case R.id.action_removed_notes:
                 Intent intent=new Intent(FoldersActivity.this, NotesActivity.class);
+                intent.putExtra("FolderName","RemovedNotes");
+                startActivity(intent);
+            case R.id.action_notes:
+                intent=new Intent(FoldersActivity.this, NotesActivity.class);
                 intent.putExtra("FolderName","RemovedNotes");
                 startActivity(intent);
         }
@@ -230,6 +235,17 @@ public class FoldersActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_notes:
+                break;
+        }
+        drawer.closeDrawers();
+        return true;
     }
 
 

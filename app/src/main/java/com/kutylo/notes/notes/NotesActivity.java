@@ -91,15 +91,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
         toolbar = (Toolbar) findViewById(R.id.toolbar); //set toolbar
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_folders);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(NotesActivity.this, FoldersActivity.class);
-                intent.putExtra("FolderName",nowUseFolders);
-                startActivity(intent);
-             }
-        });
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -162,15 +153,15 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         Drawable sort = menu.getItem(0).getIcon();
-        Drawable setting = menu.getItem(1).getIcon();
-        Drawable folders=toolbar.getNavigationIcon();
+        Drawable folders = menu.getItem(1).getIcon();
+        //Drawable folders=toolbar.getNavigationIcon();
         sort.mutate();
-        setting.mutate();
+        //setting.mutate();
         folders.mutate();
 
             toolbar.setTitleTextColor(Color.BLACK);
             sort.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
-            setting.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
+            //setting.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
             folders.setColorFilter(getResources().getColor(android.R.color.black), PorterDuff.Mode.SRC_IN);
 
 
@@ -223,7 +214,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 }
             //settings
             case R.id.action_setting:
-                Intent intent=new Intent(NotesActivity.this, SettingsActivity.class);
+                Intent intent=new Intent(NotesActivity.this, FoldersActivity.class);
                 intent.putExtra("FolderName",nowUseFolders);
                 startActivity(intent);
 
@@ -262,6 +253,9 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
         switch (item.getItemId()) {
             case R.id.nav_notes:
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this,SettingsActivity.class));
                 break;
         }
         drawer.closeDrawers();
