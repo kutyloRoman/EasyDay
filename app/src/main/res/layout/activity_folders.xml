@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".notes.FoldersActivity"
+    android:orientation="vertical">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_add_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="22dp"
+        android:clickable="true"
+        android:onClick="createFolder"
+        app:backgroundTint="#009688"
+        app:elevation="4dp"
+        app:srcCompat="@drawable/ic_add_note" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_folder"
+        style="@style/Toolbar"
+        app:title="Folders"
+        app:titleMarginStart="15dp" >
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/search_folder"
+        style="@style/SearchBoxStyle"
+        android:cursorVisible="false"
+        android:layout_width="410dp"
+        android:layout_height="49dp"
+        android:layout_below="@+id/toolbar_folder"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:text="Write do you want to search"
+        android:onClick="setSearchFolders"/>
+
+    <ListView
+        android:id="@+id/folders"
+        style="@style/ListNotesWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="476dp"
+        android:layout_below="@+id/search_folder"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="@font/acme"
+        android:headerDividersEnabled="true"/>
+
+    <LinearLayout
+        android:id="@+id/action_folders"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="left"
+            android:hapticFeedbackEnabled="true"
+            android:orientation="vertical"
+            android:onClick="renameFolder">
+
+
+            <ImageView
+                android:id="@+id/image_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:src="@drawable/ic_action_edit"
+                />
+
+            <TextView
+                android:id="@+id/title_image_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Rename"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:orientation="vertical"
+            android:onClick="deleteFolder">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:src="@drawable/ic_action_delete"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Delete"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="right"-->
+<!--            android:hapticFeedbackEnabled="true"-->
+<!--            android:onClick="checkTask"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="false"-->
+<!--                android:src="@drawable/ic_action_check"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Check"-->
+<!--                android:textSize="12sp" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:clickable="true"-->
+<!--            android:hapticFeedbackEnabled="true"-->
+<!--            android:onClick="sendNote"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="false"-->
+<!--                android:src="@drawable/ic_action_send" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Send"-->
+<!--                android:textSize="12sp" />-->
+
+<!--        </LinearLayout>-->
+
+    </LinearLayout>
+
+</RelativeLayout>
